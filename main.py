@@ -13,15 +13,25 @@ def start_game():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_d:
+                    maincharacter.rect.centerx += 1
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_d:
                     maincharacter.move_right = True
             elif event.type == pygame.KEYUP:
-                if event.key == pygame.K_a:
+                if event.key == pygame.K_d:
                     maincharacter.move_right = False
             elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_d:
-                    maincharacter.move_right = True
+                if event.key == pygame.K_a:
+                    maincharacter.move_right -= 1
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_a:
+                    maincharacter.move_left = True
+            elif event.type == pygame.KEYUP:
+                if event.key == pygame.K_a:
+                    maincharacter.move_left = False
+
 
 
 
