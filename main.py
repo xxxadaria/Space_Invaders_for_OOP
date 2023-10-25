@@ -1,6 +1,7 @@
 import pygame
 import sys
-from hero import MainCharacter
+from main_character import MainCharacter
+from pygame.sprite import
 
 def start_game():
     pygame.init()
@@ -32,11 +33,17 @@ def start_game():
                 if event.key == pygame.K_a:
                     maincharacter.move_left = False
 
+        maincharacter.output()
+        pygame.display.flip()
+        maincharacter.moving(screen)
 
-
+        screen.fill(0)
+        for bullet in bullets.sprites():
+            bullet.draw_bullet()
 
         maincharacter.output()
         pygame.display.flip()
 
+        bullets.update()
+        for bullet
 
-start_game()
