@@ -1,13 +1,17 @@
 import pygame
 import sys
 from main_character import MainCharacter
-from pygame.sprite import
+from pygame.sprite import Group
+from bullet import Bullet
+from enemy import Enemy
 
 def start_game():
     pygame.init()
     screen = pygame.display.set_mode((1000, 800))
     pygame.display.set_caption("mordovina")
     maincharacter = MainCharacter(screen)
+    enemy = Enemy(screen)
+    bullets = Group()
 
     flag = True
     while flag:
