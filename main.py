@@ -1,17 +1,18 @@
-import pygame
+import pygame, controls
 import sys
 from main_character import MainCharacter
 from pygame.sprite import Group
-from bullet import Bullet
-from enemy import Enemy
+
 
 def start_game():
     pygame.init()
     screen = pygame.display.set_mode((1000, 800))
     pygame.display.set_caption("mordovina")
+
     maincharacter = MainCharacter(screen)
-    enemy = Enemy(screen)
+    enemys = Group()
     bullets = Group()
+    controls.create_army(screen, enemys)
 
     flag = True
     while flag:
@@ -37,6 +38,7 @@ def start_game():
                 if event.key == pygame.K_a:
                     maincharacter.move_left = False
 
+
         maincharacter.output()
         pygame.display.flip()
         maincharacter.moving(screen)
@@ -45,9 +47,17 @@ def start_game():
         for bullet in bullets.sprites():
             bullet.draw_bullet()
 
+
+        controls.update(screen, enemys, maincharacter, bullets)
+        controls.update_bullets(screen, enemys, bullets)
+
+
+
         maincharacter.output()
         pygame.display.flip()
 
         bullets.update()
         for bullet
+
+
 
