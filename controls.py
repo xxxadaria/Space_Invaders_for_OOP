@@ -35,23 +35,46 @@ def update_bullets(screen, bullets, enemys):
             bullets.remove(bullet)
 
     collisions = pygame.sprite.groupcollide(bullets, enemys, True, True)
-
-def update_enemys(screen, maincharacter, enemys, bullets):
+    if len(enemys) == 0:
+        bullets.empty()
+        create_army(screen, enemys)
+        
+def update_enemys(hero, stats, screen, bullets, enemys):
     enemys.update()
+    if pygame.sprite.spritecollideany(hero, enemys):
+        hero_kill(stats, screen, enemys, bullets, hero)
+        enemys_check(screen, enemys, bullets, hero, stats)        
 
-    if pygame.sprite.spritecollide(maincharacter, enemys):
-        sys.exit()
 
-
-def create_army():
+def create_army(screen, enemys):
     enemy = Enemy(screen)
     enemy_width = enemy.rect.width
-    number_enemy_x = int((1000 - 2 * enemy_width) / enemy_width)
-
+    number_enemy_x = int((700-2*enemy_width) / enemy_width)
     enemy_height = enemy.rect.height
-    number_enemy_y = int((800 - 400 * enemy_height) / enemy_height)
+    number_enemy_y = int((1000-300-2*enemy_height) / enemy_height)
+    for enemy_row in range(number_enemy_y):
+        for enemy_num in range(number_enemy_x):
+            enemy = Enemy(screen)
+            enemy.x = enemy_width + enemy_width * enemy_num
+            enemy.y = enemy_width + enemy_width * enemy_row
+            enemy.rect.x = enemy.x
+            enemy.rect.y = enemy.y
+            enemys.add(enemy)
+def hero_kill(stats, screen, enemys, bullets, hero):
+    if stats.hero_hp > 0:
+        stats.hero_hp -= 1
+        enemys.empty()
+        bullets.empty()
+        create_army(screen, enemys)
+        hero.create_hero_again()
+        time.sleep(1)
+    else:
+        stats.run_game = False
+        sys.exit()
 
-    for i in range(number_enemy_y):
-        for j in range(number_enemy_x):
-            enemy.x = enemy_width + enemy_width * j
-            enemy.x = enemy_height + enemy_height * i
+def enemys_check(screen, enemys, bullets, hero, stats):
+    screen_rect = screen.get_rect()
+    for enemy in enemys.sprites():
+        if enemy.rect.bottom >= screen_rect.bottom:
+            hero_kill(stats, screen, enemys, bullets, hero)
+            break
