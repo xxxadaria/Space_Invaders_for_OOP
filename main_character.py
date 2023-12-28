@@ -1,5 +1,6 @@
 import pygame
 
+#инициализация мейн героя
 class MainCharacter():
     def __init__(self, screen):
         self.screen = screen
@@ -19,6 +20,10 @@ class MainCharacter():
             self.rect.centerx += 1
         if self.move_left and self.rect.left > 0:
             self.rect.centerx -= 1
+            
+            
+    def create_hero_again(self):
+        self.center = self.screen_rect.centerx
 
-        screen.fill(0)
+        
 
