@@ -9,10 +9,10 @@ class Bullet(pygame.sprite.Sprite):
         self.rect.centerx = maincharacter.rect.top
         self.speed = 5.1
         self.y = float(self.rect.y)
-
+# отрисовка пуль через спрайты 
     def draw_bullet(self):
         pygame.draw.rect(self.screen, self.color, self.rect)
-
+# перемещение пули вверх
     def update_bullet(self):
         self.y -= self.speed
         self.rect.y = self.y
